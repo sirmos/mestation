@@ -1,0 +1,8 @@
+{
+  "network": "meTestnet",
+  "chainId": 400,
+  "market": "0x9dC04C90e6A3A0b6689B4238d9808311D2215738",
+  "reputationRegistry": "0xAdf9FbD78865292DF35970182F62FEe19ee265e5",
+  "deployer": "0x8906Ea5ed7C01a80CcF3092dC69B81a8B702e13a",
+  "deployedAt": "2026-11-27T20:10:47.450Z"
+}

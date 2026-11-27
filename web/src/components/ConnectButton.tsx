@@ -32,7 +32,7 @@ export default function ConnectButton() {
         disabled={switching}
         onClick={() => switchChain({ chainId: meTestnet.id })}
       >
-        Switch to Elysium
+        Switch to ME Hub
       </button>
     );
   }

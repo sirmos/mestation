@@ -10,7 +10,7 @@ export default function Header() {
       <div className="banner">
         Testnet only. Funds on this network have no value.{" "}
         <a href={LINKS.faucet} target="_blank" rel="noreferrer">
-          Get free test HYPE for network fees
+          Get free test MEC for network fees
         </a>
       </div>
       <header className="topbar">

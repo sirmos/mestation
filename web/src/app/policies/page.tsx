@@ -46,7 +46,7 @@ export default function PoliciesPage() {
         <div className="panel" id="terms">
           <h2>Terms of use (testnet beta)</h2>
           <ul>
-            <li>Elystation runs on Elysium testnet. Test tokens have no value. Do not send money that has value.</li>
+            <li>MEStation runs on ME Hub testnet. Test tokens have no value. Do not send money that has value.</li>
             <li>The contracts are tested but not audited. Use them at your own risk.</li>
             <li>You control your own wallet. We cannot recover keys or reverse transactions.</li>
             <li>Payment links never hold funds. Pay when done holds funds in a contract under fixed rules. The owner cannot move money held in a deal.</li>

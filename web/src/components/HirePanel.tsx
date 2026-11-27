@@ -208,7 +208,7 @@ export default function HirePanel({ provider, title, price, onClose }: Props) {
         disabled={switching}
         onClick={() => switchChain({ chainId: meTestnet.id })}
       >
-        Switch to Elysium
+        Switch to ME Hub
       </button>
     );
   } else if (balance < price) {
@@ -234,7 +234,7 @@ export default function HirePanel({ provider, title, price, onClose }: Props) {
             rel="noreferrer"
             style={{ textDecoration: "underline" }}
           >
-            Get free test HYPE
+            Get free test MEC
           </a>
         </p>
       </>

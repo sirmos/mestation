@@ -276,7 +276,7 @@ export default function ProfileEditor() {
       <div className="panel">
         <h2>Switch network</h2>
         <p className="panel-note">
-          Use the button at the top to switch your wallet to Elysium Testnet.
+          Use the button at the top to switch your wallet to ME Hub Testnet.
         </p>
       </div>
     );

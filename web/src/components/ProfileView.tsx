@@ -143,7 +143,7 @@ export default function ProfileView({ address }: { address: Address }) {
           </div>
           <div className="stat">
             <strong>{money(earned)}</strong>
-            <span>USDC earned through Elystation</span>
+            <span>USDC earned through MEStation</span>
           </div>
           <div className="stat">
             <strong>{lost}</strong>

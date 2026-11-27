@@ -94,7 +94,7 @@ export function useDealChat(dealId: string, enabled: boolean) {
     setError("");
     try {
       const expires = Math.floor(Date.now() / 1000) + 24 * 3600;
-      const message = `Elystation sign in\nAddress: ${address}\nExpires: ${expires}`;
+      const message = `MEStation sign in\nAddress: ${address}\nExpires: ${expires}`;
       const signature = await signMessageAsync({ message });
       sessionStorage.setItem(KEY, JSON.stringify({ address, message, signature }));
       await refresh();

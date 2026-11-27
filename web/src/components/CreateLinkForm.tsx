@@ -171,7 +171,7 @@ export default function CreateLinkForm() {
 
         {!isConnected && <p className="hint">Connect your wallet to continue.</p>}
         {wrongChain && (
-          <p className="hint">Switch your wallet to Elysium Testnet.</p>
+          <p className="hint">Switch your wallet to ME Hub Testnet.</p>
         )}
       </form>
 

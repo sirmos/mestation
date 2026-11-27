@@ -43,7 +43,7 @@ export default function RootLayout({
           <footer className="footer">
             <div className="wrap footer-inner">
               <span>
-                {BRAND.name} on Elysium testnet. Built for the Ascend Builder
+                {BRAND.name} on ME Hub testnet. Built for the Ascend Builder
                 Competition.
               </span>
               <span className="footer-links">

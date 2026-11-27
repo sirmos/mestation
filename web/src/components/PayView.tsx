@@ -260,7 +260,7 @@ export default function PayView({ id }: { id: string }) {
         disabled={switching}
         onClick={() => switchChain({ chainId: meTestnet.id })}
       >
-        Switch to Elysium
+        Switch to ME Hub
       </button>
     );
   } else if (total <= BigInt(0)) {
@@ -368,7 +368,7 @@ export default function PayView({ id }: { id: string }) {
         )}
         <div className="row">
           <dt>Network</dt>
-          <dd>Elysium Testnet</dd>
+          <dd>ME Hub Testnet</dd>
         </div>
         <div className="row">
           <dt>Fee</dt>

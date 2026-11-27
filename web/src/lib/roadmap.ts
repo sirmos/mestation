@@ -33,7 +33,7 @@ export const roadmap = [
     phase: "Planned",
     status: "After the build",
     items: [
-      "Elystation token (ELYST), launching through Ascend",
+      "MEStation token (ELYST), launching through Ascend",
       "Part of the fees to support the token",
       "Independent security audit before mainnet",
       "A plugin for AI agents, through PayBox",

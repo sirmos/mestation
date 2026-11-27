@@ -69,7 +69,7 @@ export default function Invoice({ amount, memo, payTo, linkId, onReset }: Props)
         </div>
         <div className="row">
           <dt>Network</dt>
-          <dd>Elysium Testnet</dd>
+          <dd>ME Hub Testnet</dd>
         </div>
         <div className="row">
           <dt>Fee</dt>

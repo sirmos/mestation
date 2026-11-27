@@ -30,7 +30,7 @@ export default function HeroShowcase() {
     (activity.payments > 0 || activity.deals > 0 || activity.profiles > 0);
 
   const note = hasActivity
-    ? `Live from Elysium testnet: ${count(activity.payments, "payment", "payments")}, ${count(activity.deals, "service deal", "service deals")}, ${count(activity.profiles, "profile", "profiles")}, ${money(activity.volume)} test USDC`
+    ? `Live from ME Hub testnet: ${count(activity.payments, "payment", "payments")}, ${count(activity.deals, "service deal", "service deals")}, ${count(activity.profiles, "profile", "profiles")}, ${money(activity.volume)} test USDC`
     : "Example";
 
   return (
@@ -74,7 +74,7 @@ export default function HeroShowcase() {
             </div>
             <div className="row">
               <dt>Network</dt>
-              <dd>Elysium Testnet</dd>
+              <dd>ME Hub Testnet</dd>
             </div>
           </dl>
           <div className="share">

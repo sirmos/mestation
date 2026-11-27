@@ -24,7 +24,7 @@ export default function Home() {
           <div>
             <h1>Send a link. Get paid in USDC.</h1>
             <p className="lede">
-              Elystation turns a payment into a simple link with the amount,
+              MEStation turns a payment into a simple link with the amount,
               the reason and a receipt. Hire people with your money held until
               the job is done. Built on Elysium for the Ascend ecosystem.
             </p>
@@ -127,7 +127,7 @@ export default function Home() {
             <h2>Built for Ascend on Elysium</h2>
             <p>
               Ascend launches tokens on Elysium and supports them after launch.
-              Elystation is built to launch through Ascend, and to bring the
+              MEStation is built to launch through Ascend, and to bring the
               kind of activity Ascend looks for.
             </p>
           </div>

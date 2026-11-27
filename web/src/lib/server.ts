@@ -31,7 +31,7 @@ export async function verifyRequest(req: Request): Promise<Address | null> {
     const signature = String(parsed.signature);
 
     const m =
-      /^Elystation sign in\nAddress: (0x[a-fA-F0-9]{40})\nExpires: (\d+)$/.exec(
+      /^MEStation sign in\nAddress: (0x[a-fA-F0-9]{40})\nExpires: (\d+)$/.exec(
         message
       );
     if (!m) return null;

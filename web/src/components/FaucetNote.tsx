@@ -4,7 +4,7 @@ export default function FaucetNote() {
   return (
     <div className="callout">
       <span>
-        This is a testnet. You need a little free test HYPE for network fees.
+        This is a testnet. You need a little free test MEC for network fees.
       </span>
       <a
         className="btn btn-primary btn-sm"
@@ -12,7 +12,7 @@ export default function FaucetNote() {
         target="_blank"
         rel="noreferrer"
       >
-        Get test HYPE
+        Get test MEC
       </a>
     </div>
   );

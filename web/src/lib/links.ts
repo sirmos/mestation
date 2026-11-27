@@ -1,12 +1,14 @@
 import { meTestnet } from "./chain";
 
+export const OFFICIAL_FAUCET = "https://www.mec.me/en-US/faucet";
+
 export const LINKS = {
   github: "https://github.com/sirmos/mestation",
-  faucet: "https://www.mec.me/en-US/faucet",
+  // Our own page: shows your ME address and a converter, then links to the faucet.
+  faucet: "/get-mec",
   explorer: meTestnet.blockExplorers.default.url,
 
-  // Legacy links from the earlier version. These are removed when the home
-  // page, token page and bots are rewritten for MEStation.
+  // Legacy entries. These go away when the old Ascend and token pages are removed.
   discord: "https://discord.gg/ZTQUJGCa4y",
   telegramBot: "https://t.me/elystation_bot",
   ascend: "https://ascendlaunch.xyz",
@@ -15,6 +17,6 @@ export const LINKS = {
 
 // Legacy draft token details. Removed with the token page.
 export const TOKEN = {
-  name: "Elystation",
+  name: "MEStation",
   ticker: "ELYST",
 };

@@ -1,4 +1,4 @@
 export const BRAND = {
-  name: "Elystation",
+  name: "MEStation",
   tagline: "Payment links for USDC",
 };

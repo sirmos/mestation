@@ -130,7 +130,7 @@ function dealLine(d: Awaited<ReturnType<typeof getDeal>>, me: string) {
   return `#${d.id} ${d.title || "Service"}, ${usd(d.amount)} USDC, ${STATUS[d.status]} (you are the ${role})\n${SITE}/deal/${d.id}`;
 }
 
-export const HELP = `Elystation alerts (testnet)
+export const HELP = `MEStation alerts (testnet)
 
 /link 0xYourWallet  Watch a wallet and get alerts for it
 /unlink  Stop all alerts

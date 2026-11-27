@@ -8,7 +8,7 @@ import {
   useWaitForTransactionReceipt,
 } from "wagmi";
 import { BaseError, parseEventLogs, parseUnits } from "viem";
-import { elysiumTestnet } from "@/lib/chain";
+import { meTestnet } from "@/lib/chain";
 import { ADDRESSES, USDC_DECIMALS, elyPayAbi } from "@/lib/contracts";
 import { feeOverrides } from "@/lib/gas";
 import Invoice from "./Invoice";
@@ -20,7 +20,7 @@ function niceError(err: unknown) {
 
 export default function CreateLinkForm() {
   const { address, isConnected, chainId } = useAccount();
-  const publicClient = usePublicClient({ chainId: elysiumTestnet.id });
+  const publicClient = usePublicClient({ chainId: meTestnet.id });
 
   const [amount, setAmount] = useState("");
   const [memo, setMemo] = useState("");
@@ -51,7 +51,7 @@ export default function CreateLinkForm() {
   }, [receipt]);
 
   const created = linkId !== null;
-  const wrongChain = isConnected && chainId !== elysiumTestnet.id;
+  const wrongChain = isConnected && chainId !== meTestnet.id;
   const busy = isPending || confirming;
 
   async function submit(e: React.FormEvent) {
@@ -87,7 +87,7 @@ export default function CreateLinkForm() {
         abi: elyPayAbi,
         functionName: "createLink",
         args: [units, memo.trim()],
-        chainId: elysiumTestnet.id,
+        chainId: meTestnet.id,
         ...fees,
       });
     } catch (err) {

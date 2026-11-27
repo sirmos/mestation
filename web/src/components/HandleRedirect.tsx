@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useReadContract } from "wagmi";
-import { elysiumTestnet } from "@/lib/chain";
+import { meTestnet } from "@/lib/chain";
 import { ADDRESSES, elyMarketAbi } from "@/lib/contracts";
 import { handleKey } from "@/lib/market";
 
@@ -18,7 +18,7 @@ export default function HandleRedirect({ handle }: { handle: string }) {
     abi: elyMarketAbi,
     functionName: "handleOwner",
     args: [handleKey(handle)],
-    chainId: elysiumTestnet.id,
+    chainId: meTestnet.id,
   });
 
   const owner = query.data;

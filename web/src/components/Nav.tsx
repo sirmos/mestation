@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAccount, useReadContract } from "wagmi";
-import { elysiumTestnet } from "@/lib/chain";
+import { meTestnet } from "@/lib/chain";
 import { ADDRESSES, elyMarketAbi } from "@/lib/contracts";
 import { dealHint, useMyDeals } from "@/lib/useMyDeals";
 
@@ -26,7 +26,7 @@ export default function Nav() {
     address: ADDRESSES.elyMarket,
     abi: elyMarketAbi,
     functionName: "referee",
-    chainId: elysiumTestnet.id,
+    chainId: meTestnet.id,
   });
 
   useEffect(() => {

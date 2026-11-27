@@ -11,7 +11,7 @@ import {
 } from "wagmi";
 import { BaseError } from "viem";
 import type { Address } from "viem";
-import { elysiumTestnet } from "@/lib/chain";
+import { meTestnet } from "@/lib/chain";
 import { ADDRESSES, elyMarketAbi } from "@/lib/contracts";
 import { fetchEvents } from "@/lib/events";
 import { feeOverrides } from "@/lib/gas";
@@ -34,7 +34,7 @@ function niceError(err: unknown) {
 }
 
 function useOpenDisputes(tick: number) {
-  const client = usePublicClient({ chainId: elysiumTestnet.id });
+  const client = usePublicClient({ chainId: meTestnet.id });
   const [items, setItems] = useState<Open[] | null>(null);
 
   useEffect(() => {
@@ -103,7 +103,7 @@ function useOpenDisputes(tick: number) {
 }
 
 function DisputeCard({ item, onDone }: { item: Open; onDone: () => void }) {
-  const publicClient = usePublicClient({ chainId: elysiumTestnet.id });
+  const publicClient = usePublicClient({ chainId: meTestnet.id });
   const log = useDealLog(item.id);
 
   const [pct, setPct] = useState(50);
@@ -156,7 +156,7 @@ function DisputeCard({ item, onDone }: { item: Open; onDone: () => void }) {
         abi: elyMarketAbi,
         functionName: "resolve",
         args: [item.id, pct * 100, text],
-        chainId: elysiumTestnet.id,
+        chainId: meTestnet.id,
         ...fees,
       });
     } catch (err) {
@@ -291,7 +291,7 @@ export default function RefereePanel() {
     address: ADDRESSES.elyMarket,
     abi: elyMarketAbi,
     functionName: "referee",
-    chainId: elysiumTestnet.id,
+    chainId: meTestnet.id,
   });
 
   if (!isConnected) {

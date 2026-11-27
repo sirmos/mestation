@@ -13,7 +13,7 @@ import {
 } from "wagmi";
 import { BaseError, parseEventLogs } from "viem";
 import type { Address } from "viem";
-import { elysiumTestnet } from "@/lib/chain";
+import { meTestnet } from "@/lib/chain";
 import { ADDRESSES, elyMarketAbi, usdcAbi } from "@/lib/contracts";
 import { feeOverrides } from "@/lib/gas";
 import { LINKS } from "@/lib/links";
@@ -48,7 +48,7 @@ export default function HirePanel({ provider, title, price, onClose }: Props) {
   const { address, isConnected, chainId } = useAccount();
   const { connect, connectors, isPending: connecting } = useConnect();
   const { switchChain, isPending: switching } = useSwitchChain();
-  const publicClient = usePublicClient({ chainId: elysiumTestnet.id });
+  const publicClient = usePublicClient({ chainId: meTestnet.id });
   const fee = useFeeFor(provider);
 
   const [deadlineSeconds, setDeadlineSeconds] = useState(604800);
@@ -61,7 +61,7 @@ export default function HirePanel({ provider, title, price, onClose }: Props) {
     abi: usdcAbi,
     functionName: "balanceOf",
     args: [address ?? ZERO],
-    chainId: elysiumTestnet.id,
+    chainId: meTestnet.id,
     query: { enabled: !!address },
   });
 
@@ -70,7 +70,7 @@ export default function HirePanel({ provider, title, price, onClose }: Props) {
     abi: usdcAbi,
     functionName: "allowance",
     args: [address ?? ZERO, ADDRESSES.elyMarket],
-    chainId: elysiumTestnet.id,
+    chainId: meTestnet.id,
     query: { enabled: !!address },
   });
 
@@ -78,14 +78,14 @@ export default function HirePanel({ provider, title, price, onClose }: Props) {
     address: ADDRESSES.elyMarket,
     abi: elyMarketAbi,
     functionName: "minReview",
-    chainId: elysiumTestnet.id,
+    chainId: meTestnet.id,
   });
 
   const maxQuery = useReadContract({
     address: ADDRESSES.elyMarket,
     abi: elyMarketAbi,
     functionName: "maxReview",
-    chainId: elysiumTestnet.id,
+    chainId: meTestnet.id,
   });
 
   const {
@@ -134,7 +134,7 @@ export default function HirePanel({ provider, title, price, onClose }: Props) {
 
   const balance = balanceQuery.data ?? BigInt(0);
   const allowance = allowanceQuery.data ?? BigInt(0);
-  const wrongChain = isConnected && chainId !== elysiumTestnet.id;
+  const wrongChain = isConnected && chainId !== meTestnet.id;
   const busy = signing || confirming;
   const busyLabel = signing ? "Confirm in your wallet" : "Waiting for confirmation";
 
@@ -158,7 +158,7 @@ export default function HirePanel({ provider, title, price, onClose }: Props) {
           address: ADDRESSES.usdc,
           abi: usdcAbi,
           functionName: "faucet",
-          chainId: elysiumTestnet.id,
+          chainId: meTestnet.id,
           ...fees,
         });
       }
@@ -168,7 +168,7 @@ export default function HirePanel({ provider, title, price, onClose }: Props) {
           abi: usdcAbi,
           functionName: "approve",
           args: [ADDRESSES.elyMarket, price],
-          chainId: elysiumTestnet.id,
+          chainId: meTestnet.id,
           ...fees,
         });
       }
@@ -180,7 +180,7 @@ export default function HirePanel({ provider, title, price, onClose }: Props) {
           abi: elyMarketAbi,
           functionName: "createDeal",
           args: [provider, price, title, deadline, BigInt(chosen)],
-          chainId: elysiumTestnet.id,
+          chainId: meTestnet.id,
           ...fees,
         });
       }
@@ -206,7 +206,7 @@ export default function HirePanel({ provider, title, price, onClose }: Props) {
       <button
         className="btn btn-primary btn-block"
         disabled={switching}
-        onClick={() => switchChain({ chainId: elysiumTestnet.id })}
+        onClick={() => switchChain({ chainId: meTestnet.id })}
       >
         Switch to Elysium
       </button>

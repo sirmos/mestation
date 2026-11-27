@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { usePublicClient } from "wagmi";
 import type { Address } from "viem";
-import { elysiumTestnet } from "./chain";
+import { meTestnet } from "./chain";
 import { ADDRESSES, elyMarketAbi } from "./contracts";
 import { fetchEvents } from "./events";
 
@@ -67,7 +67,7 @@ export function dealHint(d: MyDeal, now: number): Hint {
 
 // Finds every deal where this wallet is the provider or the customer.
 export function useMyDeals(address?: Address) {
-  const client = usePublicClient({ chainId: elysiumTestnet.id });
+  const client = usePublicClient({ chainId: meTestnet.id });
   const [deals, setDeals] = useState<MyDeal[] | null>(null);
   const [error, setError] = useState(false);
 

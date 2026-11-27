@@ -2,7 +2,7 @@
 
 import { useReadContract } from "wagmi";
 import type { Address } from "viem";
-import { elysiumTestnet } from "./chain";
+import { meTestnet } from "./chain";
 import { ADDRESSES, elyMarketAbi, elystAbi } from "./contracts";
 
 const ZERO = "0x0000000000000000000000000000000000000000" as const;
@@ -14,25 +14,25 @@ export function useFeeFor(provider?: Address) {
     address: ADDRESSES.elyMarket,
     abi: elyMarketAbi,
     functionName: "feeBps",
-    chainId: elysiumTestnet.id,
+    chainId: meTestnet.id,
   });
   const token = useReadContract({
     address: ADDRESSES.elyMarket,
     abi: elyMarketAbi,
     functionName: "discountToken",
-    chainId: elysiumTestnet.id,
+    chainId: meTestnet.id,
   });
   const min = useReadContract({
     address: ADDRESSES.elyMarket,
     abi: elyMarketAbi,
     functionName: "discountMinBalance",
-    chainId: elysiumTestnet.id,
+    chainId: meTestnet.id,
   });
   const bps = useReadContract({
     address: ADDRESSES.elyMarket,
     abi: elyMarketAbi,
     functionName: "discountFeeBps",
-    chainId: elysiumTestnet.id,
+    chainId: meTestnet.id,
   });
 
   const tokenAddress = token.data;
@@ -43,7 +43,7 @@ export function useFeeFor(provider?: Address) {
     abi: elystAbi,
     functionName: "balanceOf",
     args: [provider ?? ZERO],
-    chainId: elysiumTestnet.id,
+    chainId: meTestnet.id,
     query: { enabled: active && !!provider },
   });
 

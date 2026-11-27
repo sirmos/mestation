@@ -1,13 +1,13 @@
 import { createConfig, http } from "wagmi";
 import { injected } from "wagmi/connectors";
-import { elysiumTestnet } from "./chain";
+import { meTestnet } from "./chain";
 
 export const wagmiConfig = createConfig({
-  chains: [elysiumTestnet],
+  chains: [meTestnet],
   connectors: [injected()],
   multiInjectedProviderDiscovery: false,
   transports: {
-    [elysiumTestnet.id]: http(),
+    [meTestnet.id]: http(),
   },
   ssr: true,
 });

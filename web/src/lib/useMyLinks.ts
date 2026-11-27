@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { usePublicClient } from "wagmi";
 import type { Address } from "viem";
-import { elysiumTestnet } from "./chain";
+import { meTestnet } from "./chain";
 import { ADDRESSES, elyPayAbi } from "./contracts";
 import { fetchEvents } from "./events";
 
@@ -18,7 +18,7 @@ export type MyLink = {
 
 // Finds every payment link created by this wallet.
 export function useMyLinks(address?: Address) {
-  const client = usePublicClient({ chainId: elysiumTestnet.id });
+  const client = usePublicClient({ chainId: meTestnet.id });
   const [links, setLinks] = useState<MyLink[] | null>(null);
   const [error, setError] = useState(false);
 

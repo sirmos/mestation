@@ -1,7 +1,7 @@
 "use client";
 
 import { useAccount, useConnect, useDisconnect, useSwitchChain } from "wagmi";
-import { elysiumTestnet } from "@/lib/chain";
+import { meTestnet } from "@/lib/chain";
 
 function short(address: string) {
   return `${address.slice(0, 6)}...${address.slice(-4)}`;
@@ -25,12 +25,12 @@ export default function ConnectButton() {
     );
   }
 
-  if (chainId !== elysiumTestnet.id) {
+  if (chainId !== meTestnet.id) {
     return (
       <button
         className="btn btn-primary"
         disabled={switching}
-        onClick={() => switchChain({ chainId: elysiumTestnet.id })}
+        onClick={() => switchChain({ chainId: meTestnet.id })}
       >
         Switch to Elysium
       </button>

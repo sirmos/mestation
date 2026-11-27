@@ -10,7 +10,7 @@ import {
   useWriteContract,
 } from "wagmi";
 import { BaseError, formatUnits } from "viem";
-import { elysiumTestnet } from "@/lib/chain";
+import { meTestnet } from "@/lib/chain";
 import {
   ADDRESSES,
   ELYST_DECIMALS,
@@ -39,7 +39,7 @@ function tokens(value: bigint) {
 
 function FeeBenefit() {
   const { address, isConnected, chainId } = useAccount();
-  const publicClient = usePublicClient({ chainId: elysiumTestnet.id });
+  const publicClient = usePublicClient({ chainId: meTestnet.id });
   const queryClient = useQueryClient();
   const fee = useFeeFor(address);
   const [localError, setLocalError] = useState("");
@@ -51,7 +51,7 @@ function FeeBenefit() {
     abi: elystAbi,
     functionName: "balanceOf",
     args: [address ?? ZERO],
-    chainId: elysiumTestnet.id,
+    chainId: meTestnet.id,
     query: { enabled: !!address && deployed },
   });
 
@@ -75,7 +75,7 @@ function FeeBenefit() {
   }, [txHash]);
 
   const busy = signing || confirming;
-  const wrongChain = isConnected && chainId !== elysiumTestnet.id;
+  const wrongChain = isConnected && chainId !== meTestnet.id;
   const claimed = receipt?.status === "success";
   const failed = receipt?.status === "reverted";
   const errorText =
@@ -95,7 +95,7 @@ function FeeBenefit() {
         address: ADDRESSES.elyst,
         abi: elystAbi,
         functionName: "faucet",
-        chainId: elysiumTestnet.id,
+        chainId: meTestnet.id,
         ...fees,
       });
     } catch (err) {

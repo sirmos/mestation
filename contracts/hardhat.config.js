@@ -2,6 +2,20 @@ require("@nomicfoundation/hardhat-toolbox");
 require("dotenv").config();
 
 const key = process.env.DEPLOYER_PRIVATE_KEY;
+const meRpc = process.env.ME_RPC;
+const meChainId = process.env.ME_CHAIN_ID;
+
+const networks = {};
+
+// The network only exists once ME_RPC and ME_CHAIN_ID are set, so a missing
+// value fails loudly instead of deploying to the wrong chain.
+if (meRpc && meChainId) {
+  networks.meTestnet = {
+    url: meRpc,
+    chainId: Number(meChainId),
+    accounts: key ? [key] : [],
+  };
+}
 
 module.exports = {
   solidity: {
@@ -11,11 +25,5 @@ module.exports = {
       optimizer: { enabled: true, runs: 200 },
     },
   },
-  networks: {
-    elysiumTestnet: {
-      url: process.env.ELYSIUM_RPC || "https://testnet-rpc.elysium.kinetiq.xyz",
-      chainId: 99801,
-      accounts: key ? [key] : [],
-    },
-  },
+  networks,
 };

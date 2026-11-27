@@ -12,7 +12,7 @@ import {
   useWriteContract,
 } from "wagmi";
 import { BaseError, formatUnits, parseEventLogs, parseUnits } from "viem";
-import { elysiumTestnet } from "@/lib/chain";
+import { meTestnet } from "@/lib/chain";
 import { ADDRESSES, USDC_DECIMALS, elyPayAbi, usdcAbi } from "@/lib/contracts";
 import { feeOverrides } from "@/lib/gas";
 import { useFeeText } from "@/lib/useFee";
@@ -44,7 +44,7 @@ export default function PayView({ id }: { id: string }) {
   const { address, isConnected, chainId } = useAccount();
   const { connect, connectors, isPending: connecting } = useConnect();
   const { switchChain, isPending: switching } = useSwitchChain();
-  const publicClient = usePublicClient({ chainId: elysiumTestnet.id });
+  const publicClient = usePublicClient({ chainId: meTestnet.id });
   const feeText = useFeeText();
 
   const [custom, setCustom] = useState("");
@@ -56,7 +56,7 @@ export default function PayView({ id }: { id: string }) {
     abi: elyPayAbi,
     functionName: "links",
     args: [linkId],
-    chainId: elysiumTestnet.id,
+    chainId: meTestnet.id,
   });
 
   const balanceQuery = useReadContract({
@@ -64,7 +64,7 @@ export default function PayView({ id }: { id: string }) {
     abi: usdcAbi,
     functionName: "balanceOf",
     args: [address ?? ZERO],
-    chainId: elysiumTestnet.id,
+    chainId: meTestnet.id,
     query: { enabled: !!address },
   });
 
@@ -73,7 +73,7 @@ export default function PayView({ id }: { id: string }) {
     abi: usdcAbi,
     functionName: "allowance",
     args: [address ?? ZERO, ADDRESSES.elyPay],
-    chainId: elysiumTestnet.id,
+    chainId: meTestnet.id,
     query: { enabled: !!address },
   });
 
@@ -158,7 +158,7 @@ export default function PayView({ id }: { id: string }) {
 
   const balance = balanceQuery.data ?? BigInt(0);
   const allowance = allowanceQuery.data ?? BigInt(0);
-  const wrongChain = isConnected && chainId !== elysiumTestnet.id;
+  const wrongChain = isConnected && chainId !== meTestnet.id;
   const hasFunds = balance >= total;
   const needsApproval = allowance < total;
   const busy = signing || confirming;
@@ -212,7 +212,7 @@ export default function PayView({ id }: { id: string }) {
           address: ADDRESSES.usdc,
           abi: usdcAbi,
           functionName: "faucet",
-          chainId: elysiumTestnet.id,
+          chainId: meTestnet.id,
           ...fees,
         });
       }
@@ -222,7 +222,7 @@ export default function PayView({ id }: { id: string }) {
           abi: usdcAbi,
           functionName: "approve",
           args: [ADDRESSES.elyPay, total],
-          chainId: elysiumTestnet.id,
+          chainId: meTestnet.id,
           ...fees,
         });
       }
@@ -232,7 +232,7 @@ export default function PayView({ id }: { id: string }) {
           abi: elyPayAbi,
           functionName: "pay",
           args: [linkId, total],
-          chainId: elysiumTestnet.id,
+          chainId: meTestnet.id,
           ...fees,
         });
       }
@@ -258,7 +258,7 @@ export default function PayView({ id }: { id: string }) {
       <button
         className="btn btn-primary btn-block"
         disabled={switching}
-        onClick={() => switchChain({ chainId: elysiumTestnet.id })}
+        onClick={() => switchChain({ chainId: meTestnet.id })}
       >
         Switch to Elysium
       </button>
@@ -379,7 +379,7 @@ export default function PayView({ id }: { id: string }) {
             <dt>Transaction</dt>
             <dd>
               <a
-                href={`${elysiumTestnet.blockExplorers.default.url}/transaction/${paid.hash}`}
+                href={`${meTestnet.blockExplorers.default.url}/transaction/${paid.hash}`}
                 target="_blank"
                 rel="noreferrer"
               >

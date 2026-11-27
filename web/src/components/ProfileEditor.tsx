@@ -10,7 +10,7 @@ import {
   useWriteContract,
 } from "wagmi";
 import { BaseError, parseUnits } from "viem";
-import { elysiumTestnet } from "@/lib/chain";
+import { meTestnet } from "@/lib/chain";
 import { ADDRESSES, USDC_DECIMALS, elyMarketAbi } from "@/lib/contracts";
 import { feeOverrides } from "@/lib/gas";
 import { CATEGORIES, HANDLE_PATTERN, handleKey, money } from "@/lib/market";
@@ -45,7 +45,7 @@ function niceError(err: unknown) {
 
 export default function ProfileEditor() {
   const { address, isConnected, chainId } = useAccount();
-  const publicClient = usePublicClient({ chainId: elysiumTestnet.id });
+  const publicClient = usePublicClient({ chainId: meTestnet.id });
   const { deals } = useMyDeals(address);
 
   const [form, setForm] = useState<Form>(empty);
@@ -59,7 +59,7 @@ export default function ProfileEditor() {
     abi: elyMarketAbi,
     functionName: "profiles",
     args: [address ?? ZERO],
-    chainId: elysiumTestnet.id,
+    chainId: meTestnet.id,
     query: { enabled: !!address },
   });
 
@@ -68,7 +68,7 @@ export default function ProfileEditor() {
     abi: elyMarketAbi,
     functionName: "getServices",
     args: [address ?? ZERO],
-    chainId: elysiumTestnet.id,
+    chainId: meTestnet.id,
     query: { enabled: !!address },
   });
 
@@ -77,7 +77,7 @@ export default function ProfileEditor() {
     abi: elyMarketAbi,
     functionName: "handleOf",
     args: [address ?? ZERO],
-    chainId: elysiumTestnet.id,
+    chainId: meTestnet.id,
     query: { enabled: !!address },
   });
 
@@ -88,7 +88,7 @@ export default function ProfileEditor() {
     abi: elyMarketAbi,
     functionName: "handleOwner",
     args: [handleKey(handle)],
-    chainId: elysiumTestnet.id,
+    chainId: meTestnet.id,
     query: { enabled: handleValid },
   });
 
@@ -152,7 +152,7 @@ export default function ProfileEditor() {
   }, [txHash]);
 
   const busy = signing || confirming;
-  const wrongChain = isConnected && chainId !== elysiumTestnet.id;
+  const wrongChain = isConnected && chainId !== meTestnet.id;
   const errorText =
     localError ||
     (writeError ? niceError(writeError) : "") ||
@@ -195,7 +195,7 @@ export default function ProfileEditor() {
             contact: form.contact.trim(),
           },
         ],
-        chainId: elysiumTestnet.id,
+        chainId: meTestnet.id,
         ...fees,
       })
     );
@@ -210,7 +210,7 @@ export default function ProfileEditor() {
         abi: elyMarketAbi,
         functionName: "claimHandle",
         args: [handle],
-        chainId: elysiumTestnet.id,
+        chainId: meTestnet.id,
         ...fees,
       })
     );
@@ -240,7 +240,7 @@ export default function ProfileEditor() {
         abi: elyMarketAbi,
         functionName: "addService",
         args: [title, price],
-        chainId: elysiumTestnet.id,
+        chainId: meTestnet.id,
         ...fees,
       })
     );
@@ -253,7 +253,7 @@ export default function ProfileEditor() {
         abi: elyMarketAbi,
         functionName: "setServiceActive",
         args: [BigInt(index), !active],
-        chainId: elysiumTestnet.id,
+        chainId: meTestnet.id,
         ...fees,
       })
     );

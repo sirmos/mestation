@@ -1,7 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { createPublicClient, http, verifyMessage } from "viem";
 import type { Address } from "viem";
-import { elysiumTestnet } from "./chain";
+import { meTestnet } from "./chain";
 import { ADDRESSES, elyMarketAbi } from "./contracts";
 
 const ZERO = "0x0000000000000000000000000000000000000000";
@@ -15,7 +15,7 @@ export function adminClient() {
 }
 
 export const chainClient = createPublicClient({
-  chain: elysiumTestnet,
+  chain: meTestnet,
   transport: http(),
 });
 

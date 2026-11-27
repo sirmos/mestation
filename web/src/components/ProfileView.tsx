@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useAccount, useReadContract } from "wagmi";
 import type { Address } from "viem";
-import { elysiumTestnet } from "@/lib/chain";
+import { meTestnet } from "@/lib/chain";
 import { ADDRESSES, elyMarketAbi } from "@/lib/contracts";
 import { money, shortAddress } from "@/lib/market";
 import Avatar from "./Avatar";
@@ -20,7 +20,7 @@ export default function ProfileView({ address }: { address: Address }) {
     abi: elyMarketAbi,
     functionName: "profiles",
     args: [address],
-    chainId: elysiumTestnet.id,
+    chainId: meTestnet.id,
   });
 
   const servicesQuery = useReadContract({
@@ -28,7 +28,7 @@ export default function ProfileView({ address }: { address: Address }) {
     abi: elyMarketAbi,
     functionName: "getServices",
     args: [address],
-    chainId: elysiumTestnet.id,
+    chainId: meTestnet.id,
   });
 
   const jobsQuery = useReadContract({
@@ -36,7 +36,7 @@ export default function ProfileView({ address }: { address: Address }) {
     abi: elyMarketAbi,
     functionName: "jobsCompleted",
     args: [address],
-    chainId: elysiumTestnet.id,
+    chainId: meTestnet.id,
   });
 
   const earnedQuery = useReadContract({
@@ -44,7 +44,7 @@ export default function ProfileView({ address }: { address: Address }) {
     abi: elyMarketAbi,
     functionName: "totalEarned",
     args: [address],
-    chainId: elysiumTestnet.id,
+    chainId: meTestnet.id,
   });
 
   const handleQuery = useReadContract({
@@ -52,7 +52,7 @@ export default function ProfileView({ address }: { address: Address }) {
     abi: elyMarketAbi,
     functionName: "handleOf",
     args: [address],
-    chainId: elysiumTestnet.id,
+    chainId: meTestnet.id,
   });
 
   const openedQuery = useReadContract({
@@ -60,7 +60,7 @@ export default function ProfileView({ address }: { address: Address }) {
     abi: elyMarketAbi,
     functionName: "disputesOpened",
     args: [address],
-    chainId: elysiumTestnet.id,
+    chainId: meTestnet.id,
   });
 
   const lostQuery = useReadContract({
@@ -68,7 +68,7 @@ export default function ProfileView({ address }: { address: Address }) {
     abi: elyMarketAbi,
     functionName: "disputesLost",
     args: [address],
-    chainId: elysiumTestnet.id,
+    chainId: meTestnet.id,
   });
 
   if (profileQuery.isLoading) {

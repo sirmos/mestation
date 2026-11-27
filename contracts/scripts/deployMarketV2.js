@@ -3,11 +3,20 @@ const fs = require("fs");
 
 async function main() {
   const [deployer] = await hre.ethers.getSigners();
+  const net = await hre.ethers.provider.getNetwork();
+  const chainId = Number(net.chainId);
+
+  const balance = await hre.ethers.provider.getBalance(deployer.address);
+  console.log("Network:", hre.network.name, "chainId:", chainId);
+  console.log("Deploying with:", deployer.address);
+  console.log("Balance:", hre.ethers.formatEther(balance));
+  if (balance === 0n) {
+    throw new Error("Deployer has no balance. Fund it from the faucet first.");
+  }
+
   const existing = JSON.parse(
     fs.readFileSync(`deployments/${hre.network.name}.json`, "utf8")
   );
-
-  console.log("Deploying with:", deployer.address);
   console.log("Using USDC at:", existing.usdc);
 
   // Fee is 50 bps (0.5%). The deployer is the owner, the treasury and the
@@ -28,7 +37,7 @@ async function main() {
   const address = await market.getAddress();
   const out = {
     network: hre.network.name,
-    chainId: 99801,
+    chainId,
     usdc: existing.usdc,
     elyMarketV2: address,
     deployer: deployer.address,

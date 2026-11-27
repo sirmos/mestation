@@ -10,7 +10,7 @@ import {
   useWriteContract,
 } from "wagmi";
 import { BaseError } from "viem";
-import { elysiumTestnet } from "@/lib/chain";
+import { meTestnet } from "@/lib/chain";
 import { ADDRESSES, elyMarketAbi } from "@/lib/contracts";
 import { feeOverrides } from "@/lib/gas";
 import {
@@ -43,7 +43,7 @@ function niceError(err: unknown) {
 export default function DealView({ id }: { id: string }) {
   const dealId = BigInt(id);
   const { address } = useAccount();
-  const publicClient = usePublicClient({ chainId: elysiumTestnet.id });
+  const publicClient = usePublicClient({ chainId: meTestnet.id });
   const log = useDealLog(dealId);
 
   const [now, setNow] = useState(() => Math.floor(Date.now() / 1000));
@@ -61,7 +61,7 @@ export default function DealView({ id }: { id: string }) {
     abi: elyMarketAbi,
     functionName: "deals",
     args: [dealId],
-    chainId: elysiumTestnet.id,
+    chainId: meTestnet.id,
   });
 
   const fee = useFeeFor(dealQuery.data ? dealQuery.data[1] : undefined);
@@ -70,7 +70,7 @@ export default function DealView({ id }: { id: string }) {
     address: ADDRESSES.elyMarket,
     abi: elyMarketAbi,
     functionName: "referee",
-    chainId: elysiumTestnet.id,
+    chainId: meTestnet.id,
   });
 
   const {
@@ -185,7 +185,7 @@ export default function DealView({ id }: { id: string }) {
           abi: elyMarketAbi,
           functionName: "release",
           args: [dealId],
-          chainId: elysiumTestnet.id,
+          chainId: meTestnet.id,
           ...fees,
         });
       }
@@ -195,7 +195,7 @@ export default function DealView({ id }: { id: string }) {
           abi: elyMarketAbi,
           functionName: "refund",
           args: [dealId],
-          chainId: elysiumTestnet.id,
+          chainId: meTestnet.id,
           ...fees,
         });
       }
@@ -205,7 +205,7 @@ export default function DealView({ id }: { id: string }) {
           abi: elyMarketAbi,
           functionName: "markDelivered",
           args: [dealId],
-          chainId: elysiumTestnet.id,
+          chainId: meTestnet.id,
           ...fees,
         });
       }
@@ -215,7 +215,7 @@ export default function DealView({ id }: { id: string }) {
           abi: elyMarketAbi,
           functionName: "claimAfterReview",
           args: [dealId],
-          chainId: elysiumTestnet.id,
+          chainId: meTestnet.id,
           ...fees,
         });
       }
@@ -225,7 +225,7 @@ export default function DealView({ id }: { id: string }) {
           abi: elyMarketAbi,
           functionName: "resolveAfterTimeout",
           args: [dealId],
-          chainId: elysiumTestnet.id,
+          chainId: meTestnet.id,
           ...fees,
         });
       }
@@ -244,7 +244,7 @@ export default function DealView({ id }: { id: string }) {
         abi: elyMarketAbi,
         functionName: "openDispute",
         args: [dealId, text],
-        chainId: elysiumTestnet.id,
+        chainId: meTestnet.id,
         ...fees,
       })
     );
@@ -262,7 +262,7 @@ export default function DealView({ id }: { id: string }) {
         abi: elyMarketAbi,
         functionName: "addEvidence",
         args: [dealId, text],
-        chainId: elysiumTestnet.id,
+        chainId: meTestnet.id,
         ...fees,
       })
     );

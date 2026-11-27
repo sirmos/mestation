@@ -3,7 +3,16 @@ const fs = require("fs");
 
 async function main() {
   const [deployer] = await hre.ethers.getSigners();
+  const net = await hre.ethers.provider.getNetwork();
+  const chainId = Number(net.chainId);
+
+  const balance = await hre.ethers.provider.getBalance(deployer.address);
+  console.log("Network:", hre.network.name, "chainId:", chainId);
   console.log("Deploying with:", deployer.address);
+  console.log("Balance:", hre.ethers.formatEther(balance));
+  if (balance === 0n) {
+    throw new Error("Deployer has no balance. Fund it from the faucet first.");
+  }
 
   const usdc = await hre.ethers.deployContract("MockUSDC");
   await usdc.waitForDeployment();
@@ -20,7 +29,7 @@ async function main() {
 
   const out = {
     network: hre.network.name,
-    chainId: 99801,
+    chainId,
     usdc: usdcAddress,
     elyPay: payAddress,
     deployer: deployer.address,

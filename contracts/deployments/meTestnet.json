@@ -1,0 +1,8 @@
+{
+  "network": "meTestnet",
+  "chainId": 400,
+  "usdc": "0x48294347890FBec0E83aF96013C0693Bf061D672",
+  "elyPay": "0x40Eb540D95F56FBb03d8d08042fc34A7700f79F1",
+  "deployer": "0x8906Ea5ed7C01a80CcF3092dC69B81a8B702e13a",
+  "deployedAt": "2026-11-27T13:19:25.726Z"
+}

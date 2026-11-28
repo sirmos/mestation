@@ -16,9 +16,14 @@ const STEPS = [
 
 type Entry = { label: string; tx: string; order: number };
 
-// The on-chain record of one deal, with a link to the explorer for each step.
+function shortHash(hash: string) {
+  return `${hash.slice(0, 10)}...${hash.slice(-8)}`;
+}
+
+// The on-chain record of one deal: every step with its transaction hash.
 export default function DealTimeline({ dealId }: { dealId: string }) {
   const [entries, setEntries] = useState<Entry[] | null>(null);
+  const [copied, setCopied] = useState("");
 
   useEffect(() => {
     let cancelled = false;
@@ -53,6 +58,16 @@ export default function DealTimeline({ dealId }: { dealId: string }) {
     };
   }, [dealId]);
 
+  async function copy(text: string) {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(text);
+      setTimeout(() => setCopied(""), 1800);
+    } catch {
+      // The browser may block copying. The hash is still on screen.
+    }
+  }
+
   return (
     <div className="panel">
       <h2>On-chain record</h2>
@@ -73,15 +88,31 @@ export default function DealTimeline({ dealId }: { dealId: string }) {
             <div className="svc" key={`${e.tx}-${i}`}>
               <div>
                 <p className="svc-title">{e.label}</p>
+                <p
+                  className="hint"
+                  title={e.tx}
+                  style={{ fontFamily: "monospace" }}
+                >
+                  {shortHash(e.tx)}
+                </p>
               </div>
-              <a
-                className="btn btn-secondary btn-sm"
-                href={explorerTx(e.tx)}
-                target="_blank"
-                rel="noreferrer"
-              >
-                View on explorer
-              </a>
+              <div style={{ display: "flex", gap: 8 }}>
+                <button
+                  type="button"
+                  className="btn btn-secondary btn-sm"
+                  onClick={() => copy(e.tx)}
+                >
+                  {copied === e.tx ? "Copied" : "Copy hash"}
+                </button>
+                <a
+                  className="btn btn-secondary btn-sm"
+                  href={explorerTx(e.tx)}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Explorer
+                </a>
+              </div>
             </div>
           ))}
         </div>

@@ -27,7 +27,7 @@ git log baseline-pre-hackathon..main --oneline
 |---|---|---|
 | Contracts | Payment links, escrow with disputes, profiles and handles, 46 tests | Deployed and run on ME Hub testnet; new **ReputationRegistry** contract with 10 tests and a pluggable identity-gate hook |
 | Network | Another EVM testnet | ME Hub testnet configuration, env-driven deployment scripts, official HTTPS node with automatic fallback |
-| Web app | Pages for links, directory, profiles, deals, dashboard, referee | Review screens, on-chain record with explorer links, ME address converter and faucet helper, redesigned home page and branding |
+| Web app | Pages for links, directory, profiles, deals, dashboard, referee | Review screens, on-chain record of every deal step, ME address converter and faucet helper, redesigned home page and branding |
 | Wallet access | Direct RPC calls from the browser | Same-origin HTTPS RPC proxy with a method allow-list, because browsers block the HTTP node from an HTTPS site |
 | Sign-in for deal chat | Free-form signed text | Sign-In with Ethereum (EIP-4361) message bound to the site domain, 4-hour lifetime, cleared on disconnect |
 | Event index | Indexed two contracts | Also indexes review events; reads the chain in chunks within the ME node's 10,000-block query limit |
@@ -42,7 +42,7 @@ Done today:
 - All contracts run on the **ME Hub testnet EVM**. Deployment scripts read the chain ID from the node.
 - The app reaches the node through the **official HTTPS endpoint** published by the ME team, with the earlier HTTP node as a fallback.
 - A **0x to me1 address converter** (`/get-mec`) lets users claim test MEC from the official faucet, which asks for the Bech32 form.
-- Every step of a deal links to the **ME explorer**.
+- Every step of a deal is listed on the deal page with its transaction hash.
 
 In progress, not built yet:
 
@@ -73,7 +73,7 @@ The payments use a **test token we deployed ourselves**. It is not Circle's USDC
 4. With a second wallet, open the profile, press **Get 1,000 test USDC**, and hire the service. Approve, then confirm the hire. The money is now held by the contract.
 5. As the provider, open the deal from the dashboard and mark it delivered. As the customer, release the payment.
 6. The customer sees a **Review** panel. Post a rating. It appears on the provider's profile.
-7. Every step is listed under **On-chain record** on the deal page, with explorer links.
+7. Every step is listed under **On-chain record** on the deal page, with its transaction hash.
 
 ## Architecture
 
@@ -126,6 +126,12 @@ Create a Supabase project, run `supabase/schema.sql` in its SQL Editor, and put 
 ## Tests
 
 `npx hardhat test` runs 56 tests: payment links and fees, the first market, escrow deals, disputes and referee rules, handles, safety checks (double release, refunds, bad amounts and deadlines, owner-only settings, fee limits), and the reputation registry (one review per finished deal, customer only, rating limits, identity gate, minimum amount).
+
+## Fees and roles
+
+- A **0.5% fee** is taken from payments (the contracts cap it at 1%). It is the project's revenue, and it is paid in the test token, so it has no value on this testnet.
+- The fee goes to a **treasury address** set at deployment. Today that is the deployer wallet, `0x8906Ea5ed7C01a80CcF3092dC69B81a8B702e13a`, which is also the contract **owner** and the **referee** for disputes. The owner can change the fee (up to 1%), the treasury, the referee and the review limits. It cannot move money held in a deal.
+- A single referee is a trust assumption. The planned verified-juror panel is meant to replace it.
 
 ## Security and privacy
 

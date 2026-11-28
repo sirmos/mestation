@@ -1,7 +1,6 @@
 import Link from "next/link";
 import CreateLinkForm from "@/components/CreateLinkForm";
 import HeroShowcase from "@/components/HeroShowcase";
-import { LINKS } from "@/lib/links";
 import { roadmap } from "@/lib/roadmap";
 
 const icon = {
@@ -26,7 +25,7 @@ export default function Home() {
             <p className="lede">
               MEStation turns a payment into a simple link with the amount,
               the reason and a receipt. Hire people with your money held until
-              the job is done. Built on Elysium for the Ascend ecosystem.
+              the job is done. Built on the Meta Earth Hub testnet.
             </p>
             <div className="hero-cta">
               <a className="btn btn-mint" href="#create">
@@ -74,8 +73,11 @@ export default function Home() {
                   <path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" />
                 </svg>
               </span>
-              <h3>Built on Elysium</h3>
-              <p>Made for speed on Elysium, a chain that settles to HyperEVM.</p>
+              <h3>Built on Meta Earth</h3>
+              <p>
+                Runs on the Meta Earth Hub testnet, an EVM-compatible network,
+                with test funds only.
+              </p>
             </div>
             <div className="fact">
               <span className="fact-icon">
@@ -122,71 +124,49 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="ascend" className="ascend">
+        <section id="why" className="ascend">
           <div className="section-head">
-            <h2>Built for Ascend on Elysium</h2>
+            <h2>Built for trust, not just payments</h2>
             <p>
-              Ascend launches tokens on Elysium and supports them after launch.
-              MEStation is built to launch through Ascend, and to bring the
-              kind of activity Ascend looks for.
+              Payment links are the base. MEStation adds protection for the
+              person paying and proof of work for the person getting paid.
             </p>
           </div>
           <div className="asc-grid">
             <div className="asc-item">
-              <h3>One asset: USDC</h3>
+              <h3>Money held until the job is done</h3>
               <p>
-                Payments, deals and fees are all in USDC, the asset Ascend
-                launch pools trade against. People who earn it here already
-                hold what they need to buy tokens launched through Ascend.
+                In a deal, the customer&apos;s payment waits in a contract. It
+                is released when the work is confirmed, paid out automatically
+                after the review time, or refunded if nothing is delivered. If
+                there is a disagreement, both sides add evidence and a referee
+                decides.
               </p>
             </div>
             <div className="asc-item">
-              <h3>A hiring layer for builders</h3>
+              <h3>Reviews tied to real jobs</h3>
               <p>
-                Teams that launch on Ascend need designers, developers,
-                moderators and marketers. Hire them here and pay in USDC, with
-                the money held until the work is done.
+                Only the customer of a finished deal can review it, and only
+                once. The reputation contract is deployed on ME Hub testnet,
+                and the review screens are being added.
               </p>
             </div>
             <div className="asc-item">
-              <h3>Usage anyone can check</h3>
+              <h3>Built around ME</h3>
               <p>
-                Every payment and job is public on the chain. Ascend looks at
-                holders, volume and clean distribution. Our token page shows
-                our live numbers.
+                MEStation runs on the Meta Earth Hub testnet. Support for ME ID
+                verified profiles and an ME Pass mini-program is in
+                development.
               </p>
             </div>
           </div>
-          <ol className="life">
-            <li className="life-step">
-              <strong>Launch</strong>
-              Planned. A USDC pool, with the allocation published first.
-            </li>
-            <li className="life-step">
-              <strong>Ascended</strong>
-              Holders, volume and clean distribution.
-            </li>
-            <li className="life-step">
-              <strong>HyperCore spot</strong>
-              Part of our creator fee set aside for the listing.
-            </li>
-            <li className="life-step">
-              <strong>HIP-3 perps</strong>
-              Later, once spot liquidity exists.
-            </li>
-          </ol>
           <div className="asc-actions">
-            <Link className="btn btn-primary" href="/token">
-              See our token plan
+            <Link className="btn btn-primary" href="/explore">
+              Find someone to hire
             </Link>
-            <a
-              className="btn btn-secondary"
-              href={LINKS.ascend}
-              target="_blank"
-              rel="noreferrer"
-            >
-              About Ascend
-            </a>
+            <Link className="btn btn-secondary" href="/get-mec">
+              Get test MEC
+            </Link>
           </div>
         </section>
 

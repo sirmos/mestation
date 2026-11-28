@@ -1,20 +1,17 @@
 // The roadmap on the home page. Edit this file to change it.
-// Only put something under "Live" after you have tested it on the live site.
+// Only put something under "Live" after you have tested it on ME Hub testnet.
 
 export const roadmap = [
   {
     key: "live",
-    phase: "Live on testnet",
+    phase: "Live on ME Hub testnet",
     status: "Done",
     items: [
-      "Payment links, QR code and WhatsApp sharing",
-      "Services directory with profiles and unique handles",
-      "Pay when done, with disputes and a referee",
-      "Private messages, photos and videos for each deal",
-      "Test ELYST token with a live fee benefit",
-      "Prices in your local currency (estimates)",
-      "Telegram and Discord bots, always on, no computer needed",
-      "Token page with live usage, policies and security notes",
+      "Payment link contract",
+      "Pay-when-done escrow with disputes and a referee",
+      "Reputation contract: one review per finished deal",
+      "ME address converter for the test faucet",
+      "HTTPS proxy so browsers and wallets can reach the ME node",
     ],
   },
   {
@@ -22,10 +19,10 @@ export const roadmap = [
     phase: "In development",
     status: "Building now",
     items: [
-      "Signed wallet linking for the bots",
-      "Reviews and ratings",
-      "A referee panel instead of one wallet",
-      "More tests and a closer look at every contract function",
+      "Payment links, services and deals end to end on ME",
+      "Reviews and ratings in the app",
+      "ME ID verified profiles and verified-only reviews",
+      "A verified-juror panel instead of one referee",
     ],
   },
   {
@@ -33,10 +30,10 @@ export const roadmap = [
     phase: "Planned",
     status: "After the build",
     items: [
-      "MEStation token (ELYST), launching through Ascend",
-      "Part of the fees to support the token",
-      "Independent security audit before mainnet",
-      "A plugin for AI agents, through PayBox",
+      "ME Pass mini-program for links and orders",
+      "Its own RollApp registered on the ME Hub",
+      "Telegram and Discord alerts for deals",
+      "Independent security audit before any real money",
     ],
   },
   {
@@ -46,7 +43,6 @@ export const roadmap = [
     items: [
       "Local currency to USDC through a licensed partner",
       "Sign in with email",
-      "Community panel for disputes",
       "Mobile app",
     ],
   },

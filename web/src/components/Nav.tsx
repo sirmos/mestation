@@ -12,7 +12,6 @@ const baseItems = [
   { href: "/explore", label: "Explore" },
   { href: "/profile", label: "Offer a service" },
   { href: "/dashboard", label: "Dashboard" },
-  { href: "/token", label: "Token" },
   { href: "/#how", label: "How it works" },
 ];
 

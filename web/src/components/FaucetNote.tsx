@@ -1,4 +1,4 @@
-import { LINKS } from "@/lib/links";
+import Link from "next/link";
 
 export default function FaucetNote() {
   return (
@@ -6,14 +6,9 @@ export default function FaucetNote() {
       <span>
         This is a testnet. You need a little free test MEC for network fees.
       </span>
-      <a
-        className="btn btn-primary btn-sm"
-        href={LINKS.faucet}
-        target="_blank"
-        rel="noreferrer"
-      >
+      <Link className="btn btn-primary btn-sm" href="/get-mec">
         Get test MEC
-      </a>
+      </Link>
     </div>
   );
 }

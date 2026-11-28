@@ -80,7 +80,7 @@ export default function HeroShowcase() {
           <div className="share">
             <div className="qr">
               <QRCodeSVG
-                value="https://elystation.vercel.app"
+                value="https://github.com/sirmos/mestation"
                 size={84}
                 level="M"
                 bgColor="#FFFFFF"

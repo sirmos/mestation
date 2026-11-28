@@ -1,19 +1,27 @@
 import { parseAbi } from "viem";
 import type { Address } from "viem";
 
+const ZERO = "0x0000000000000000000000000000000000000000" as Address;
+
+function addr(value: string | undefined): Address {
+  return value && /^0x[0-9a-fA-F]{40}$/.test(value) ? (value as Address) : ZERO;
+}
+
+// Set these in web/.env.local after deploying (see contracts/deployments/).
 export const ADDRESSES = {
-  usdc: "0x4CD746962FEFEFfa2fcc5cced7B27BC47FE3890B" as Address,
-  elyPay: "0x68Aa5b7A6A755b2FcfB1a94E253E4Ab92Ad9cBb4" as Address,
-  elyMarket: "0x446d38615086cbD9DF9678B9C298E5181d1D14aC" as Address,
-  // Paste the test ELYST address from deployElyst.js here.
-  elyst: "0x83302446E2CCDE23fa727df984FB0e7483e6148e" as Address,
+  usdc: addr(process.env.NEXT_PUBLIC_USDC),
+  elyPay: addr(process.env.NEXT_PUBLIC_PAY),
+  elyMarket: addr(process.env.NEXT_PUBLIC_MARKET),
+  // Legacy token field. Removed together with the token page.
+  elyst: addr(process.env.NEXT_PUBLIC_ELYST),
 };
 
 export const USDC_DECIMALS = 6;
 export const ELYST_DECIMALS = 18;
 
-// Block where the contracts were created. Zero works on this network.
-export const DEPLOY_BLOCK = BigInt(0);
+// Block where the contracts were created. Set NEXT_PUBLIC_DEPLOY_BLOCK after
+// deploying so log scans do not start from block zero.
+export const DEPLOY_BLOCK = BigInt(process.env.NEXT_PUBLIC_DEPLOY_BLOCK || "0");
 
 export const elyPayAbi = parseAbi([
   "function createLink(uint256 amount, string memo) returns (uint256 id)",

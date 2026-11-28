@@ -1,4 +1,4 @@
 export const BRAND = {
   name: "MEStation",
-  tagline: "Payment links for USDC",
+  tagline: "Safe payments and portable reputation",
 };

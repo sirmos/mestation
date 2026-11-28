@@ -26,7 +26,7 @@ const body = Hanken_Grotesk({
 export const metadata: Metadata = {
   title: `${BRAND.name}: ${BRAND.tagline}`,
   description:
-    "Payment links and pay-when-done hiring in USDC on Elysium. Built for the Ascend Builder Competition.",
+    "Payment links and pay-when-done hiring in USDC, with disputes and reviews tied to real jobs. Built on the Meta Earth Hub testnet.",
 };
 
 export default function RootLayout({
@@ -43,19 +43,13 @@ export default function RootLayout({
           <footer className="footer">
             <div className="wrap footer-inner">
               <span>
-                {BRAND.name} on ME Hub testnet. Built for the Ascend Builder
-                Competition.
+                {BRAND.name} on the Meta Earth Hub testnet. Built for the Meta
+                Earth HARBOR Hackathon.
               </span>
               <span className="footer-links">
-                <Link href="/token">Token plan</Link>
                 <Link href="/#roadmap">Roadmap</Link>
+                <Link href="/get-mec">Get test MEC</Link>
                 <Link href="/policies">Policies</Link>
-                <a href={LINKS.discord} target="_blank" rel="noreferrer">
-                  Discord
-                </a>
-                <a href={LINKS.telegramBot} target="_blank" rel="noreferrer">
-                  Telegram bot
-                </a>
                 <a href={LINKS.github} target="_blank" rel="noreferrer">
                   GitHub
                 </a>

@@ -13,7 +13,7 @@ import {
   wasSent,
 } from "./store";
 
-const SITE = (process.env.SITE_URL || "https://elystation.vercel.app").replace(/\/$/, "");
+const SITE = (process.env.SITE_URL || "http://localhost:3000").replace(/\/$/, "");
 const MARKET = ADDRESSES.elyMarket;
 
 const marketAbi = parseAbi([

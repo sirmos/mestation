@@ -12,7 +12,7 @@ export type Stats = {
 };
 
 // Usage numbers for the token page, from our own server.
-// These are the kind of numbers Ascend looks at: unique wallets and volume.
+// These are the usage numbers shown on the home page: unique wallets and volume.
 export function useStats() {
   const [stats, setStats] = useState<Stats | null>(null);
 

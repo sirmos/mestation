@@ -51,6 +51,8 @@ export default function CreateLinkForm() {
   }, [receipt]);
 
   const created = linkId !== null;
+  const failed = receipt?.status === "reverted";
+  const missing = Boolean(receipt) && !failed && linkId === null;
   const wrongChain = isConnected && chainId !== meTestnet.id;
   const busy = isPending || confirming;
 
@@ -108,7 +110,11 @@ export default function CreateLinkForm() {
       ? niceError(writeError)
       : receiptError
         ? niceError(receiptError)
-        : "";
+        : failed
+          ? "The transaction was confirmed, but the contract rejected it. Nothing was created."
+          : missing
+            ? "The transaction was confirmed, but no link was created. Check that the app points at the right contract address."
+            : "";
 
   return (
     <div className="bench">

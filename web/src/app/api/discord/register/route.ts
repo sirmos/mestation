@@ -30,7 +30,7 @@ export async function GET(req: Request) {
       options: [{ type: 4, name: "id", description: "Deal number", required: true }],
     },
     { name: "links", description: "Your payment links" },
-    { name: "balance", description: "Your USDC and HYPE" },
+    { name: "balance", description: "Your USDC and MEC" },
     { name: "help", description: "What the bot can do" },
   ];
 

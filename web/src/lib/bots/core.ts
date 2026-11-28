@@ -138,7 +138,7 @@ export const HELP = `MEStation alerts (testnet)
 /jobs  Your deals
 /deal 3  Details of one deal
 /links  Your payment links
-/balance  Your USDC and HYPE
+/balance  Your USDC and MEC
 /help  This message
 
 Watching a wallet only reads public chain data. Never send private keys or seed phrases here.`;
@@ -217,7 +217,7 @@ export async function handleCommand(
       });
       const hype = await chainClient.getBalance({ address: w as `0x${string}` });
       lines.push(
-        `${short(w)}: ${usd(usdc)} USDC, ${Number(formatUnits(hype, 18)).toFixed(4)} HYPE`
+        `${short(w)}: ${usd(usdc)} USDC, ${Number(formatUnits(hype, 18)).toFixed(4)} MEC`
       );
     }
     return lines.join("\n");

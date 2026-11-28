@@ -226,7 +226,7 @@ export default function HirePanel({ provider, title, price, onClose }: Props) {
           {busy ? busyLabel : "Get 1,000 test USDC"}
         </button>
         <p className="hint">
-          Test USDC is free on this testnet. You also need a little HYPE for
+          Test USDC is free on this testnet. You also need a little MEC for
           network fees.{" "}
           <a
             href={LINKS.faucet}

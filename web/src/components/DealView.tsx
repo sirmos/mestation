@@ -24,6 +24,7 @@ import { bpsText, useFeeFor } from "@/lib/useDiscount";
 import { useDealLog } from "@/lib/useDealLog";
 import DealChat from "./DealChat";
 import LocalPrice from "./LocalPrice";
+import { ReviewPanel } from "./Reviews";
 
 const ZERO = "0x0000000000000000000000000000000000000000";
 
@@ -460,6 +461,8 @@ export default function DealView({ id }: { id: string }) {
       </div>
 
       {chatRole && <DealChat dealId={id} role={chatRole} status={status} />}
+
+      <ReviewPanel dealId={dealId} customer={customer} provider={provider} status={status} />
 
       {canDispute && (
         <div className="panel">

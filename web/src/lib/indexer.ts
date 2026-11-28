@@ -2,6 +2,7 @@
 import { parseAbi } from "viem";
 import { adminClient, chainClient } from "@/lib/server";
 import { ADDRESSES, elyMarketAbi } from "@/lib/contracts";
+import { REPUTATION_ADDRESS } from "@/lib/reputation";
 import { getState, setState } from "@/lib/bots/store";
 
 // Server only. Reads the contract events in small chunks and saves them in
@@ -24,6 +25,10 @@ const marketEventsAbi = parseAbi([
 const payEventsAbi = parseAbi([
   "event LinkCreated(uint256 indexed id, address indexed owner, uint256 amount, string memo)",
   "event Paid(uint256 indexed id, address indexed payer, address indexed receiver, uint256 amount, uint256 fee)",
+]);
+
+const reputationEventsAbi = parseAbi([
+  "event ReviewPosted(uint256 indexed dealId, address indexed provider, address indexed customer, uint8 rating, string comment)",
 ]);
 
 // The first block to read is the first block at or after this time.
@@ -77,12 +82,20 @@ async function fetchRows(from: number, to: number, dirty: Set<string>) {
     }),
   ]);
 
+  const reputation = await chainClient.getContractEvents({
+    address: REPUTATION_ADDRESS,
+    abi: reputationEventsAbi,
+    fromBlock,
+    toBlock,
+  });
+
   const rows: any[] = [];
   const resolved: bigint[] = [];
 
   const groups: [string, any[]][] = [
     ["market", market as any[]],
     ["pay", pay as any[]],
+    ["reputation", reputation as any[]],
   ];
 
   for (const [contract, logs] of groups) {

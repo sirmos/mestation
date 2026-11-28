@@ -14,7 +14,7 @@ export async function GET(req: Request) {
   const contract = url.searchParams.get("contract");
   const event = url.searchParams.get("event");
 
-  if ((contract !== "market" && contract !== "pay") || !event || !/^[A-Za-z]+$/.test(event)) {
+  if ((contract !== "market" && contract !== "pay" && contract !== "reputation") || !event || !/^[A-Za-z]+$/.test(event)) {
     return Response.json({ error: "bad_request" }, { status: 400 });
   }
 

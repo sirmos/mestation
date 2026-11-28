@@ -10,6 +10,7 @@ import { money, shortAddress } from "@/lib/market";
 import Avatar from "./Avatar";
 import HirePanel from "./HirePanel";
 import LocalPrice from "./LocalPrice";
+import { ProfileReviews } from "./Reviews";
 
 export default function ProfileView({ address }: { address: Address }) {
   const { address: me } = useAccount();
@@ -155,6 +156,7 @@ export default function ProfileView({ address }: { address: Address }) {
           </div>
         </div>
         <p className="hint">These numbers come straight from the chain.</p>
+        <ProfileReviews provider={address} />
 
         <dl className="inv-rows">
           <div className="row">

@@ -8,7 +8,7 @@ export type ChainEvent = {
 // Asks our own server for saved events. Fast, and the same for 3 or 3,000 users.
 // `where` filters on event fields, for example { provider: "0x..." } or { id: "3" }.
 export async function fetchEvents(
-  contract: "market" | "pay",
+  contract: "market" | "pay" | "reputation",
   event: string,
   where: Record<string, string> = {}
 ): Promise<ChainEvent[]> {

@@ -36,6 +36,25 @@ export default function HandleRedirect({ handle }: { handle: string }) {
     );
   }
 
+  if (query.error || owner === undefined) {
+    return (
+      <div className="panel">
+        <h2>We could not check @{handle}</h2>
+        <p className="panel-note">
+          The network did not answer. Check your connection and try again.
+        </p>
+        <div className="actions">
+          <button className="btn btn-secondary" onClick={() => query.refetch()}>
+            Try again
+          </button>
+          <Link className="btn btn-secondary" href="/explore">
+            Browse the directory
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="panel">
       <h2>No one has @{handle}</h2>

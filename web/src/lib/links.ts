@@ -2,16 +2,16 @@ import { meTestnet } from "./chain";
 
 export const OFFICIAL_FAUCET = "https://www.mec.me/en-US/faucet";
 
-// How the ME explorer builds its links. MetaMask uses /tx/ and /address/ by
-// default. If links open a "not found" page, change these two values (or set
-// NEXT_PUBLIC_EXPLORER_TX_PATH and NEXT_PUBLIC_EXPLORER_ADDRESS_PATH).
-const TX_PATH = process.env.NEXT_PUBLIC_EXPLORER_TX_PATH || "/tx/";
+// Address pages on the ME explorer. Change this if links open "not found",
+// or set NEXT_PUBLIC_EXPLORER_ADDRESS_PATH.
 const ADDRESS_PATH = process.env.NEXT_PUBLIC_EXPLORER_ADDRESS_PATH || "/address/";
 
 const base = meTestnet.blockExplorers.default.url.replace(/\/$/, "");
 
+// The ME explorer only knows the Cosmos form of a transaction hash, so links
+// go through our own /go/tx lookup, which redirects to the right page.
 export function explorerTx(hash: string) {
-  return `${base}${TX_PATH}${hash}`;
+  return `/go/tx/${hash}`;
 }
 
 export function explorerAddress(address: string) {

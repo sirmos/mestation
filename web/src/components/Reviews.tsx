@@ -18,7 +18,17 @@ import { shortAddress } from "@/lib/market";
 import { REPUTATION_ADDRESS, reputationAbi } from "@/lib/reputation";
 
 function niceError(err: unknown) {
-  if (err instanceof BaseError) return err.shortMessage;
+  if (err instanceof BaseError) {
+    const m = err.shortMessage;
+    if (m.includes("not been authorized")) {
+      return "This account is not connected to the site. In MetaMask, connect this account to MEStation, then try again.";
+    }
+    if (m.includes("User rejected")) return "You cancelled the request in your wallet.";
+    if (m.includes("exceeds the balance") || m.includes("insufficient funds")) {
+      return "Not enough MEC for the network fee. Use the free test MEC link at the top of the page.";
+    }
+    return m;
+  }
   return "Something went wrong. Try again.";
 }
 

@@ -7,7 +7,7 @@ import { meTestnet } from "./chain";
 export const AUTH_STATEMENT =
   "Sign in to MEStation to read and send the messages of your deals. This does not cost gas and does not send any money.";
 
-export const AUTH_LIFETIME_SECONDS = 12 * 3600;
+export const AUTH_LIFETIME_SECONDS = 4 * 3600;
 
 export type AuthMessage = {
   domain: string;

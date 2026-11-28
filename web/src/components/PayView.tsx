@@ -13,6 +13,7 @@ import {
 } from "wagmi";
 import { BaseError, formatUnits, parseEventLogs, parseUnits } from "viem";
 import { meTestnet } from "@/lib/chain";
+import { explorerTx } from "@/lib/links";
 import { ADDRESSES, USDC_DECIMALS, elyPayAbi, usdcAbi } from "@/lib/contracts";
 import { feeOverrides } from "@/lib/gas";
 import { useFeeText } from "@/lib/useFee";
@@ -389,7 +390,7 @@ export default function PayView({ id }: { id: string }) {
             <dt>Transaction</dt>
             <dd>
               <a
-                href={`${meTestnet.blockExplorers.default.url}/transaction/${paid.hash}`}
+                href={`${explorerTx(paid.hash)}`}
                 target="_blank"
                 rel="noreferrer"
               >

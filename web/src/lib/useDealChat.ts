@@ -3,6 +3,12 @@
 import { useCallback, useEffect, useState } from "react";
 import { useAccount, useSignMessage } from "wagmi";
 import { createClient } from "@supabase/supabase-js";
+import {
+  AUTH_LIFETIME_SECONDS,
+  buildAuthMessage,
+  parseAuthMessage,
+  randomNonce,
+} from "./auth";
 
 export type ChatMessage = {
   id: string;
@@ -33,8 +39,10 @@ function loadAuth(address: string) {
     if (!raw) return null;
     const a = JSON.parse(raw);
     if (String(a.address).toLowerCase() !== address.toLowerCase()) return null;
-    const m = /Expires: (\d+)$/.exec(String(a.message));
-    if (!m || Number(m[1]) < Math.floor(Date.now() / 1000) + 60) return null;
+    const m = parseAuthMessage(String(a.message));
+    if (!m) return null;
+    if (m.domain !== window.location.host) return null;
+    if (Date.parse(m.expiresAt) < Date.now() + 60_000) return null;
     return a;
   } catch {
     return null;
@@ -48,7 +56,7 @@ function header(address?: string) {
 }
 
 // Messages and files for one deal. The wallet signs one short message
-// (no gas) and that signature is kept for the browser session.
+// (no gas). The signature is kept only in this browser tab, never saved by us.
 export function useDealChat(dealId: string, enabled: boolean) {
   const { address } = useAccount();
   const { signMessageAsync } = useSignMessage();
@@ -93,8 +101,15 @@ export function useDealChat(dealId: string, enabled: boolean) {
     if (!address) return;
     setError("");
     try {
-      const expires = Math.floor(Date.now() / 1000) + 24 * 3600;
-      const message = `MEStation sign in\nAddress: ${address}\nExpires: ${expires}`;
+      const now = new Date();
+      const message = buildAuthMessage({
+        domain: window.location.host,
+        address,
+        uri: window.location.origin,
+        nonce: randomNonce(),
+        issuedAt: now,
+        expiresAt: new Date(now.getTime() + AUTH_LIFETIME_SECONDS * 1000),
+      });
       const signature = await signMessageAsync({ message });
       sessionStorage.setItem(KEY, JSON.stringify({ address, message, signature }));
       await refresh();

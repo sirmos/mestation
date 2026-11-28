@@ -1,6 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { createPublicClient, http, verifyMessage } from "viem";
 import type { Address } from "viem";
+import { AUTH_LIFETIME_SECONDS, parseAuthMessage } from "./auth";
 import { meTestnet } from "./chain";
 import { ADDRESSES, elyMarketAbi } from "./contracts";
 
@@ -19,7 +20,8 @@ export const chainClient = createPublicClient({
   transport: http(),
 });
 
-// The browser signs a short message once. We check the signature and expiry.
+// The browser signs a short sign-in message once. We check that it was written
+// for this website, that it has not expired, and that the signature is real.
 export async function verifyRequest(req: Request): Promise<Address | null> {
   const raw = req.headers.get("x-ely-auth");
   if (!raw) return null;
@@ -30,13 +32,31 @@ export async function verifyRequest(req: Request): Promise<Address | null> {
     const message = String(parsed.message);
     const signature = String(parsed.signature);
 
-    const m =
-      /^MEStation sign in\nAddress: (0x[a-fA-F0-9]{40})\nExpires: (\d+)$/.exec(
-        message
-      );
+    const m = parseAuthMessage(message);
     if (!m) return null;
-    if (m[1].toLowerCase() !== address.toLowerCase()) return null;
-    if (Number(m[2]) < Math.floor(Date.now() / 1000)) return null;
+    if (m.address.toLowerCase() !== address.toLowerCase()) return null;
+    if (m.chainId !== meTestnet.id) return null;
+
+    // The message must have been written for this very website.
+    const host = (req.headers.get("x-forwarded-host") ?? req.headers.get("host") ?? "")
+      .split(",")[0]
+      .trim();
+    if (!host || m.domain !== host) return null;
+    let uriHost = "";
+    try {
+      uriHost = new URL(m.uri).host;
+    } catch {
+      return null;
+    }
+    if (uriHost !== host) return null;
+
+    const now = Date.now();
+    const issued = Date.parse(m.issuedAt);
+    const expires = Date.parse(m.expiresAt);
+    if (!Number.isFinite(issued) || !Number.isFinite(expires)) return null;
+    if (expires < now) return null;
+    if (issued > now + 5 * 60 * 1000) return null;
+    if (expires - issued > (AUTH_LIFETIME_SECONDS + 60) * 1000) return null;
 
     const ok = await verifyMessage({
       address: address as Address,

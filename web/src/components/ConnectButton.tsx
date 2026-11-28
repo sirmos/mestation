@@ -83,7 +83,7 @@ export default function ConnectButton() {
     <button
       className="btn btn-secondary"
       title="Disconnect"
-      onClick={() => disconnect()}
+      onClick={() => { try { sessionStorage.removeItem("ely-auth"); } catch {} disconnect(); }}
     >
       <span className="dot" aria-hidden="true" />
       {short(address as string)}

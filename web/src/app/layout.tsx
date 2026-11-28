@@ -4,7 +4,7 @@ import { Newsreader, Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
 import "./market.css";
 import "./chat.css";
-import "./ascend.css";
+import "./sections.css";
 import "./misc.css";
 import Providers from "./providers";
 import Header from "@/components/Header";
@@ -43,8 +43,8 @@ export default function RootLayout({
           <footer className="footer">
             <div className="wrap footer-inner">
               <span>
-                {BRAND.name} on the Meta Earth Hub testnet. Built for the Meta
-                Earth HARBOR Hackathon.
+                &copy; {new Date().getFullYear()} {BRAND.name} on the Meta
+                Earth Hub testnet.
               </span>
               <span className="footer-links">
                 <Link href="/#roadmap">Roadmap</Link>

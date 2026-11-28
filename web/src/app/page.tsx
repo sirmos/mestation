@@ -124,7 +124,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="why" className="ascend">
+        <section id="why" className="why">
           <div className="section-head">
             <h2>Built for trust, not just payments</h2>
             <p>
@@ -132,8 +132,8 @@ export default function Home() {
               person paying and proof of work for the person getting paid.
             </p>
           </div>
-          <div className="asc-grid">
-            <div className="asc-item">
+          <div className="why-grid">
+            <div className="why-item">
               <h3>Money held until the job is done</h3>
               <p>
                 In a deal, the customer&apos;s payment waits in a contract. It
@@ -143,7 +143,7 @@ export default function Home() {
                 decides.
               </p>
             </div>
-            <div className="asc-item">
+            <div className="why-item">
               <h3>Reviews tied to real jobs</h3>
               <p>
                 Only the customer of a finished deal can review it, and only
@@ -151,7 +151,7 @@ export default function Home() {
                 and the review screens are being added.
               </p>
             </div>
-            <div className="asc-item">
+            <div className="why-item">
               <h3>Built around ME</h3>
               <p>
                 MEStation runs on the Meta Earth Hub testnet. Support for ME ID
@@ -160,7 +160,7 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <div className="asc-actions">
+          <div className="why-actions">
             <Link className="btn btn-primary" href="/explore">
               Find someone to hire
             </Link>

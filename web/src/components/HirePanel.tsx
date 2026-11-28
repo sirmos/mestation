@@ -327,7 +327,7 @@ export default function HirePanel({ provider, title, price, onClose }: Props) {
 
       {fee.qualifies && (
         <p className="hint">
-          Lower fee: this provider holds ELYST, so the fee is {bpsText(fee.discountBps)}{" "}
+          Reduced fee: the fee is {bpsText(fee.discountBps)}{" "}
           instead of {bpsText(fee.baseBps)}.
         </p>
       )}

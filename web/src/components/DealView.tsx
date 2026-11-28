@@ -407,7 +407,7 @@ export default function DealView({ id }: { id: string }) {
             <dt>Fee when paid out</dt>
             <dd>
               {bpsText(fee.effectiveBps)}
-              {fee.qualifies ? " (provider holds ELYST)" : ""}
+              {fee.qualifies ? " (reduced fee)" : ""}
             </dd>
           </div>
         </dl>

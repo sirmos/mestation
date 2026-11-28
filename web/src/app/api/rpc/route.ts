@@ -1,8 +1,17 @@
 // Forwards allow-listed JSON-RPC calls to the ME Hub node, so browsers and
-// wallets can use an HTTPS address even though the node speaks plain HTTP.
+// wallets can use an HTTPS address of our own.
 export const dynamic = "force-dynamic";
 
-const UPSTREAM = process.env.ME_RPC_UPSTREAM || "http://118.175.0.249:8545";
+// Tried in order. The official HTTPS node comes first, the old HTTP node is
+// the fallback. Set ME_RPC_UPSTREAM to put another node at the front.
+const UPSTREAMS = [
+  process.env.ME_RPC_UPSTREAM,
+  "https://beta-hub-8545.explorer-testnet.me",
+  "http://118.175.0.249:8545",
+]
+  .filter((url): url is string => Boolean(url))
+  .filter((url, i, all) => all.indexOf(url) === i)
+  .map((url) => ({ url, name: url.startsWith("https") ? "https" : "http-fallback" }));
 
 const ALLOWED = new Set([
   "web3_clientVersion",
@@ -55,19 +64,38 @@ export async function POST(request: Request) {
     }
   }
 
-  try {
-    const upstream = await fetch(UPSTREAM, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: text,
-      signal: AbortSignal.timeout(15_000),
-      cache: "no-store",
-    });
-    return new Response(await upstream.text(), {
-      status: upstream.status,
-      headers: { "content-type": "application/json" },
-    });
-  } catch {
-    return Response.json(rpcError(null, "ME node unreachable"), { status: 502 });
+  const isSend = calls.some((c) => c.method === "eth_sendRawTransaction");
+  let lastError = "ME node unreachable";
+
+  for (const upstream of UPSTREAMS) {
+    try {
+      const res = await fetch(upstream.url, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: text,
+        signal: AbortSignal.timeout(isSend ? 20_000 : 12_000),
+        cache: "no-store",
+      });
+
+      // A server error on a read: try the next node. Never re-send a transaction.
+      if (res.status >= 500 && !isSend) {
+        lastError = `The ${upstream.name} node answered ${res.status}`;
+        continue;
+      }
+
+      return new Response(await res.text(), {
+        status: res.status,
+        headers: {
+          "content-type": "application/json",
+          "x-upstream": upstream.name,
+        },
+      });
+    } catch (e) {
+      lastError = `The ${upstream.name} node did not answer`;
+      // A timeout on a broadcast may mean the node accepted it. Do not send it twice.
+      if (isSend && (e as { name?: string })?.name === "TimeoutError") break;
+    }
   }
+
+  return Response.json(rpcError(null, lastError), { status: 502 });
 }
